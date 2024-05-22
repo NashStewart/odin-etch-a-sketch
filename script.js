@@ -13,9 +13,21 @@ function createGridItem() {
     item.classList.add('grid-item-colored');
     const bgColor = window.getComputedStyle(item).backgroundColor;
     let alpha = parseFloat(bgColor.slice(0, -1).split(',')[3]);
+
     if (alpha < 1) {
       const newAlpha = alpha + 0.1;
-      const newBgColor = bgColor.replace(alpha, newAlpha);
+      let newBgColor = bgColor;
+
+      if (alpha == 0.1) {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        const randomBgColor = `rgba(${r}, ${g}, ${b}, ${newAlpha})`
+        newBgColor = randomBgColor;
+      } else {
+        newBgColor = bgColor.replace(alpha, newAlpha);
+      }
+
       item.style.backgroundColor = newBgColor;
     }
   });

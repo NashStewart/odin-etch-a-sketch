@@ -1,9 +1,11 @@
 'use strct'
 
 const baseContainer = document.querySelector('.base-container');
-const changePixelsButton = document.querySelector('.change-pixels');
+const changeGridButton = document.querySelector('.change-grid');
+const clearGridButton = document.querySelector('.clear-grid');
 
 let gridContainer = document.querySelector('.grid-container');
+let size = 50;
 
 function createGridItem() {
   const item = document.createElement('div');
@@ -35,8 +37,8 @@ function createGridItem() {
   return item;
 }
 
-function renderGrid(size) {
-  if (isNaN(size) || size < 1) { size = 2 };
+function renderGrid() {
+  if (isNaN(size) || size <= 1) { size = 2 };
   if (size > 100) { size = 100; };
 
   for (let i = 0; i < size; i++) {
@@ -51,15 +53,22 @@ function renderGrid(size) {
   }
 }
 
-changePixelsButton.addEventListener('click', () => {
-  const size = prompt('Input a size between 1-100.');
-
+function clearGrid() {
   baseContainer.removeChild(gridContainer);
   gridContainer = document.createElement('div');
   gridContainer.classList.add('grid-container');
   baseContainer.appendChild(gridContainer);
+}
 
-  renderGrid(size);
+changeGridButton.addEventListener('click', () => {
+  size = prompt('Input a size between 1-100.');
+  clearGrid();
+  renderGrid();
 });
 
-renderGrid(50);
+clearGridButton.addEventListener('click', () => {
+  clearGrid();
+  renderGrid();
+});
+
+renderGrid();
